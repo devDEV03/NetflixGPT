@@ -1,18 +1,27 @@
-# Getting Started with Create React App
+# Netflix GPT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Create React App
+- Configured Tailwind CSS
+- Header
+- Routing of App
+- Login Form
+- Sign up Form
+- Form Validation
+- useRef Hook
+- Firebase Setup
+- Deploying our app to production
+- Create SignUp User Account
+- Implement Sign in using API
+- Create Redux Store using userSlice
+- Implemented Sign Out Feature
 
-## Available Scripts
+# Features
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Login/Sign Up
+    - Sign In/ Sign up Form
+    -redirect to Browse Page
+- Browse (after authentication)
+    - Header
 
 ### `npm test`
 
