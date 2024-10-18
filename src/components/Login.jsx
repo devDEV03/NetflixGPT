@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { LOGIN_BACKGROUND, PHOTO_URL } from '../utils/constant';
 
 const Login = () => {
   const [signIn, setSignIn] = useState(true);
@@ -28,14 +29,12 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           updateProfile(user, {
-            displayName: name.current.value, photoURL: "https://avatars.githubusercontent.com/u/123757089?v=4"
+            displayName: name.current.value, photoURL: PHOTO_URL
           }).then(() => {
             const {uid , email, displayName, photoURL} = auth.currentUser;
             dispatch(addUser({uid : uid, email : email, displayName : displayName, photoURL : photoURL}));
-          navigate("/browse");
           }).catch((error) => {
-            // An error occurred
-            // ...
+           
           });
         })
         .catch((error) => {
@@ -50,15 +49,11 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in 
           const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
-
-          // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMessage(errorCode + " " + errorMessage)
+          setErrorMessage("User Not Found")
 
         });
     }
@@ -68,7 +63,7 @@ const Login = () => {
     <div >
       <Header />
       <div className='absolute'>
-        <img src="https://assets.nflxext.com/ffe/siteui/vlv3/f272782d-cf96-4988-a675-6db2afd165e0/web/IN-en-20241008-TRIFECTA-perspective_b28b640f-cee0-426b-ac3a-7c000d3b41b7_large.jpg" alt="bg" />
+        <img src= {LOGIN_BACKGROUND} alt="bg" />
       </div>
 
       <form className='w-1/3 absolute my-36 mx-auto right-0 left-0 bg-opacity-80 bg-black flex flex-col p-10' onSubmit={(e) => e.preventDefault()}>

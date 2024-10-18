@@ -14,6 +14,9 @@
 - Implement Sign in using API
 - Create Redux Store using userSlice
 - Implemented Sign Out Feature
+- BugFix - sign up user display name and picture 
+- BugFix - if not authenticated then cant navigate to browse and if authenticated then cant navigate to /
+- Unsubscribe the onAuthStateChanged callback
 
 # Features
 
