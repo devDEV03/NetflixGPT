@@ -17,6 +17,19 @@
 - BugFix - sign up user display name and picture 
 - BugFix - if not authenticated then cant navigate to browse and if authenticated then cant navigate to /
 - Unsubscribe the onAuthStateChanged callback
+- Add harcoded values to the constants file
+- Register TMDB now playing movies list
+- Custom Hook for Now playing Movies
+- create Movie slice
+- upload store with movie and trailer data
+- Embedded the youtube video and make it autoplay and mute
+- Styling for Main Container
+- Built Secondary Container
+- Build Movie List
+- Build Movie Card
+- TMDB Image CDN URL
+- Made the Browser page amazing with Tailwind CSS
+- Implemented Popular and Upcoming Movies using Custom Hooks
 
 # Features
 
