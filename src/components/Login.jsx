@@ -3,7 +3,6 @@ import Header from '../components/Header'
 import { handleForm } from '../utils/validation';
 import { auth} from '../utils/firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { LOGIN_BACKGROUND, PHOTO_URL } from '../utils/constant';
@@ -14,7 +13,6 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
-  const navigate = useNavigate(); 
   const dispatch = useDispatch();
 
 
