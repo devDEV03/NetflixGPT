@@ -6,13 +6,15 @@ import { LOGIN_BACKGROUND, PHOTO_URL } from '../utils/constant';
 
 const GptSearch = () => {
   return (
-    <div>
-      <div className='absolute -z-10 fixed'>
-        <img src= {LOGIN_BACKGROUND} alt="bg" />
+  <>
+    <div className='absolute -z-10 '>
+        <img className='h-screen md:w-screen md:h-full object-cover' src= {LOGIN_BACKGROUND} alt="bg" />
       </div>
+    <div>
       <GptSearchBar />
       <GptMovieSuggestions />
     </div>
+    </>
   )
 }
 
