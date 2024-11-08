@@ -5,17 +5,24 @@ import { auth} from '../utils/firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
-import { LOGIN_BACKGROUND, PHOTO_URL } from '../utils/constant';
+import { LOGIN_BACKGROUND, PHOTO_URL, photosArrLinks } from '../utils/constant';
 
 const Login = () => {
   const [signIn, setSignIn] = useState(true);
   const [errMessage, setErrorMessage] = useState(null);
+
+// We useRef over useState so that it persists across re renders
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
+
+
   const dispatch = useDispatch();
 
 
+// When we first submit the form it checks whether email and password is valid  then we use the built in firebase functions,
+// where if it's a new user then we do createUser for creating new users and then using the built in function updateProfile for updating the displayName and profilePhoto
+// and if it's an old user we have to just use  signInWithEmailAndPassword so as to sign in,the errors will be returned and displayed
   const handleFormValidation = () => {
     const val = handleForm(email.current.value, password.current.value);
     setErrorMessage(val);
@@ -26,8 +33,10 @@ const Login = () => {
       createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
           const user = userCredential.user;
+
+          const photoLink = photosArrLinks[Math.floor(Math.random()*photosArrLinks.length)];
           updateProfile(user, {
-            displayName: name.current.value, photoURL: PHOTO_URL
+            displayName: name.current.value, photoURL: photoLink
           }).then(() => {
             const {uid , email, displayName, photoURL} = auth.currentUser;
             dispatch(addUser({uid : uid, email : email, displayName : displayName, photoURL : photoURL}));
@@ -47,12 +56,13 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in 
           const user = userCredential.user;
+          console.log(user);
+          
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMessage("User Not Found")
-
         });
     }
   }
@@ -85,6 +95,7 @@ const Login = () => {
         />
         <button on className='p-3 m-3  md:p-4 md:m-4 bg-red-600 rounded-md text-white' onClick={handleFormValidation}>{(signIn) ? "Sign In" : "Sign Up"}</button>
         <p className='text-lg font-bold text-red-500 m-1'>{errMessage}</p>
+        {/* We switch between sign in and sign up through this */}
         <p className='p-3 m-3  md:p-4 md:m-4 text-white font-semibold cursor-pointer hover:underline' onClick={() => setSignIn((prevSign) => !prevSign)} >{(signIn) ? "New to Netflix? Sign Up" : "Already Registered? Sign In Now"} </p>
       </form>
     </div>

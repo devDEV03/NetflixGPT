@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { addUser, removeUser } from '../utils/userSlice';
 import { onAuthStateChanged } from 'firebase/auth';
 import { toggleGptSearchView } from '../utils/gptSlice';
-import { SUPPORTED_LANGUAGES } from '../utils/constant';
+import { ProfilePFPLink, SUPPORTED_LANGUAGES } from '../utils/constant';
 import {changePreferredLanguage} from "../utils/configSlice";
 
 const Header = () => {
@@ -18,11 +18,12 @@ const Header = () => {
   const user = useSelector((store) => store.user);
   const gptSearch = useSelector((store) => store.gpt.gptSearch);
 
-    
+    // We have used onAuthStateChanged here in the header because it is consistent throughout the app and helps in restricting some endpoints based on whehter the user is logged in or not.
+    // We check whether the user is logged in by onAuthStateChanged,if the user is not null then it will add it in the slice and keep it on the browse page and if it is null then we will stay on the log in page
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user1) => {
       if (user) {
-          const {uid , email, displayName, photoURL} = user;
+          const {uid , email, displayName, photoURL} = user1;
           dispatch(addUser({uid : uid, email : email, displayName : displayName, photoURL : photoURL}));
           navigate("/browse");
         } else {
@@ -34,6 +35,8 @@ const Header = () => {
     return () => unsubscribe();
   },[]);
 
+
+// For signing out users
   const signOutUser = () => {
     signOut(auth).then(() => {
       // navigate("/")
@@ -65,9 +68,9 @@ const Header = () => {
           </select>
          )
         }
-              <button className='m-3 py-2 px-4 bg-purple-500 text-white rounded-xl' onClick={handleToggleSearchView}>{gptSearch ? "Home Page" : "Gpt Search"}</button>
-          <img className="w-12 h-12 m-2 hidden md:flex" src= {user?.photoURL} alt="" />
-          <button className='font-bold text-white my-auto hover:bg-white hover:bg-opacity-30 hover:py-4 hover:px-2' onClick={signOutUser}>Sign out</button>
+          <button className='m-3 py-2 px-4 bg-purple-500 text-white rounded-xl' onClick={handleToggleSearchView}>{gptSearch ? "Home Page" : "Gpt Search"}</button>
+          <img className="w-12 h-12 m-2 hidden md:flex" src= {ProfilePFPLink + user?.photoURL} alt="" />
+          <button className='font-bold text-white p-3 bg-red-600 rounded-lg my-auto mx-6 hover:bg-white hover:bg-red-300 ' onClick={signOutUser}>Sign out</button>
         </div>}
     </div>
   )

@@ -19,6 +19,8 @@ const Browse = () => {
   useUpcoming();
   useTopRated();
   useAiringTodayTv();
+
+  
   return (
     <div className='overflow-scroll no-scrollbar w-full'>
       <Header />
